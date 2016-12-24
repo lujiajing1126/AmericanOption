@@ -81,6 +81,7 @@ int main(void) {
 	double year;
 	int steps;
 	double sigma;
+	int call;
 	cout << "请输入当前股价: ";
 	cin >> pPrice;
 	cout << "请输入执行价格: ";
@@ -93,9 +94,19 @@ int main(void) {
 	cin >> sigma;
 	cout << "请输入步长: ";
 	cin >> steps;
-	AmericanCallOption option(rate,pPrice,ePrice,steps,sigma,year);
-	AmericanOption *opt_ptr = &option;
-	opt_ptr->generateStockPrices();
-	double price = opt_ptr->getPricing();
-	cout << "该期权的现值为: " << price << endl;
+	cout << "是否是看涨期权(是，请输入1): ";
+	cin >> call;
+	if (call == 1) {
+		AmericanCallOption option(rate,pPrice,ePrice,steps,sigma,year);
+		AmericanOption *opt_ptr = &option;
+		opt_ptr->generateStockPrices();
+		double price = opt_ptr->getPricing();
+		cout << "该期权的现值为: " << price << endl;
+	} else {
+		AmericanPutOption option(rate,pPrice,ePrice,steps,sigma,year);
+		AmericanOption *opt_ptr = &option;
+		opt_ptr->generateStockPrices();
+		double price = opt_ptr->getPricing();
+		cout << "该期权的现值为: " << price << endl;
+	}
 }
